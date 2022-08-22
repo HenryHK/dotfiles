@@ -1,0 +1,8 @@
+version: 2
+lint-debounce: 1s
+log-file: "/tmp/efm.log"
+log-level: 4
+root-markers:
+  - .git/
+  - package.json
+  - .zshrc
