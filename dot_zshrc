@@ -67,3 +67,15 @@ export EDITOR="nvim"
 function niclean {
     git fetch -p && for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do git branch -D $branch; done
 }
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+function vi() {
+    if [ $# -eq 0 ]; then
+        nvim
+        return
+    fi
+    chezmoi verify $1 > /dev/null 2>&1\
+        && chezmoi edit --watch --hardlink=false $1\
+        || nvim $@
+}
