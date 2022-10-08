@@ -21,12 +21,12 @@ yabai -m config window_origin_display        default
 yabai -m config window_placement             second_child
 yabai -m config window_topmost               off
 yabai -m config window_shadow                on
-yabai -m config window_opacity               on
+yabai -m config window_opacity               on                    ## enable window opacity
 yabai -m config window_opacity_duration      0.0
 yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        0.9
-yabai -m config window_border                on
-yabai -m config window_border_width          10
+yabai -m config window_border                on                    ## enable window border
+yabai -m config window_border_width          5
 yabai -m config active_window_border_color   0xfff08080
 yabai -m config normal_window_border_color   0xffadd8e6
 yabai -m config insert_feedback_color        0xffd75f5f
@@ -47,6 +47,8 @@ yabai -m config window_gap                   06
 
 # ===== Rules ==================================
 yabai -m rule --add label="Finder" app="Finder" manage=off
+yabai -m rule --add label="Mail" app="Mail" manage=off
+yabai -m rule --add label="Calendar" app="Calendar" manage=off
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 yabai -m rule --add label="macfeh" app="^macfeh$" manage=off
 yabai -m rule --add label="System Preferences" app="^System Preferences$" title=".*" manage=off
@@ -67,9 +69,6 @@ yabai -m signal --add event=space_changed action="${ubersicht_spaces_refresh_com
 yabai -m signal --add event=window_created action="${ubersicht_spaces_refresh_command}"
 yabai -m signal --add event=window_focused action="${ubersicht_spaces_refresh_command}"
 yabai -m signal --add event=window_title_changed action="${ubersicht_spaces_refresh_command}"
-yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus recent || yabai -m window --focus first"
-yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus recent || yabai -m window --focus first"
-yabai -m signal --add event=window_minimized active=yes action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus recent || yabai -m window --focus first"
 yabai -m signal --add event=mission_control_exit action='echo "refresh" | nc -U /tmp/yabai-indicator.socket'
 yabai -m signal --add event=display_added action='echo "refresh" | nc -U /tmp/yabai-indicator.socket'
 yabai -m signal --add event=display_removed action='echo "refresh" | nc -U /tmp/yabai-indicator.socket'
@@ -80,3 +79,7 @@ yabai -m signal --add event=window_moved action='echo "refresh windows" | nc -U 
 yabai -m signal --add event=window_resized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
 yabai -m signal --add event=window_minimized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
 yabai -m signal --add event=window_deminimized action='echo "refresh windows" | nc -U /tmp/yabai-indicator.socket'
+# auto focus to the last window if a window is minimized/closed/destroyed
+yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus recent || yabai -m window --focus first"
+yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus recent || yabai -m window --focus first"
+yabai -m signal --add event=window_minimized active=yes action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus recent || yabai -m window --focus first"
