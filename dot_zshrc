@@ -58,8 +58,9 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # fzf search git changed files with preview
 fd() {
-  preview="git diff $@ --color=always -- {-1}"
-  git diff $@ --name-only | fzf -m --ansi --preview $preview
+  # preview="git diff $@ --color=always -- {-1}"
+  # git diff $@ --name-only | fzf -m --ansi --preview $preview
+  git ls-files --modified --others --exclude-standard | fzf 
 }
 
 export EDITOR="nvim"
