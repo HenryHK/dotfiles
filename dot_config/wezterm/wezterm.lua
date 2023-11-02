@@ -14,7 +14,7 @@ return {
   -- https://draculatheme.com
   -- color_scheme = 'Dracula',
 
-  window_background_opacity = 0.99,
+  window_background_opacity = 1,
 
   -- Font configuration
   -- https://wezfurlong.org/wezterm/config/fonts.html

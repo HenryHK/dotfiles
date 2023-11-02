@@ -1,8 +1,5 @@
 # Restart Yabai
-lctrl + shift + alt - r : \
-    /usr/bin/env osascript <<< \
-        "display notification \"Restarting Yabai\" with title \"Yabai\""; \
-    launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+lctrl + shift + alt - r : yabai --restart-service
 
 # Layout
 shift + alt - s : yabai -m config --space $(yabai -m query --spaces --space | jq -r '.index') layout stack
